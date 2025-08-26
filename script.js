@@ -69,6 +69,7 @@ function resetCalculator() {
   // Focus input for user convenience
   inputEl.focus();
 }
+
 function calculateGrade() {
   const input = document.getElementById('score');
   const resultDiv = document.getElementById('result');
@@ -128,3 +129,4 @@ function resetForm() {
   backBtn.classList.add('hidden');
   input.focus();
 }
+
