@@ -76,39 +76,53 @@ function calculateGrade() {
   const submitBtn = document.getElementById('submitBtn');
   const backBtn = document.getElementById('backBtn');
 
-  // reset prior state
+  // Reset previous result and classes
   resultDiv.textContent = '';
-  resultDiv.className = 'result';
+  resultDiv.className = 'result'; // base class
 
   const raw = input.value.trim();
   const score = parseInt(raw, 10);
 
-  // validation: empty or non-numeric
+  // Validation: empty or non-numeric
   if (raw === '' || isNaN(score)) {
     resultDiv.textContent = '❗ Please enter a valid number.';
-    resultDiv.classList.add('grade-error');
+    resultDiv.classList.add('grade-error', 'show');
     return;
   }
 
-  // validation: range 0–100
+  // Validation: out of range
   if (score < 0 || score > 100) {
     resultDiv.textContent = '❗ Score must be between 0 and 100.';
-    resultDiv.classList.add('grade-error');
+    resultDiv.classList.add('grade-error', 'show');
     return;
   }
 
-  // determine grade
-  let grade, cls;
-  if (score >= 90)      { grade = 'A'; cls = 'grade-A'; }
-  else if (score >= 80) { grade = 'B'; cls = 'grade-B'; }
-  else if (score >= 70) { grade = 'C'; cls = 'grade-C'; }
-  else if (score >= 60) { grade = 'D'; cls = 'grade-D'; }
-  else                  { grade = 'F'; cls = 'grade-F'; }
+  // Determine grade and corresponding class
+  let gradeClass = '';
+  let gradeText = '';
 
-  resultDiv.textContent = `Your grade: ${grade} (${score}%)`;
-  resultDiv.classList.add(cls);
+  if (score >= 90) {
+    gradeClass = 'grade-A';
+    gradeText = 'A';
+  } else if (score >= 80) {
+    gradeClass = 'grade-B';
+    gradeText = 'B';
+  } else if (score >= 70) {
+    gradeClass = 'grade-C';
+    gradeText = 'C';
+  } else if (score >= 60) {
+    gradeClass = 'grade-D';
+    gradeText = 'D';
+  } else {
+    gradeClass = 'grade-F';
+    gradeText = 'F';
+  }
 
-  // toggle buttons
+  // Display result with styling
+  resultDiv.textContent = `Your grade: ${gradeText} (${score}%)`;
+  resultDiv.classList.add(gradeClass, 'show');
+
+  // Toggle buttons
   submitBtn.classList.add('hidden');
   backBtn.classList.remove('hidden');
 }
@@ -119,14 +133,15 @@ function resetForm() {
   const submitBtn = document.getElementById('submitBtn');
   const backBtn = document.getElementById('backBtn');
 
-  // clear everything
+  // Clear input and result
   input.value = '';
   resultDiv.textContent = '';
-  resultDiv.className = 'result';
+  resultDiv.className = 'result'; // reset to base class
 
-  // toggle buttons back
+  // Toggle buttons back
   submitBtn.classList.remove('hidden');
   backBtn.classList.add('hidden');
+
+  // Focus input for convenience
   input.focus();
 }
-
