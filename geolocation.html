@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Distance to Kasem Bundit University</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    button:first-of-type {
+      background-color: #3498db;
+      color: white;
+    }
+
+    button:last-of-type {
+      background-color: #95a5a6;
+      color: white;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #2d3436;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <h1>Kasem Bundit University Distance Checker</h1>
+  <button onclick="calculateDistance()">Where am I?</button>
+  <div id="result"></div>
+  <button onclick="goBack()">Back</button>
+
+  <script>
+    const kasemBunditLat = 13.7471;
+    const kasemBunditLon = 100.5650;
+
+    function toRadians(degrees) {
+      return degrees * Math.PI / 180;
+    }
+
+    function haversine(lat1, lon1, lat2, lon2) {
+      const R = 6371; // Earth's radius in km
+      const dLat = toRadians(lat2 - lat1);
+      const dLon = toRadians(lon2 - lon1);
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    function calculateDistance() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const userLat = position.coords.latitude;
+          const userLon = position.coords.longitude;
+          const distance = haversine(userLat, userLon, kasemBunditLat, kasemBunditLon);
+          document.getElementById("result").innerText =
+            `You're ${distance.toFixed(2)} km away from the Kasem Bundit University`;
+        }, error => {
+          document.getElementById("result").innerText =
+            "Unable to retrieve your location.";
+        });
+      } else {
+        document.getElementById("result").innerText =
+          "Geolocation is not supported by your browser.";
+      }
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

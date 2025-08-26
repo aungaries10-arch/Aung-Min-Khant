@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Colorful Grade Assignment</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Grade Assignment</h2>
+
+  <label for="score">Enter the Score (0–100):</label>
+  <input type="number" id="score" placeholder="e.g. 85" />
+
+  <button id="submitBtn" onclick="calculateGrade()">Submit</button>
+  <button id="backBtn" onclick="resetForm()" class="hidden">Back</button>
+
+  <!-- Result display box -->
+  <div id="result" class="result"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
