@@ -70,6 +70,7 @@ function resetCalculator() {
   inputEl.focus();
 }
 
+// Grade Calculator Logic
 function calculateGrade() {
   const input = document.getElementById('score');
   const resultDiv = document.getElementById('result');
@@ -78,7 +79,7 @@ function calculateGrade() {
 
   // Reset previous result and classes
   resultDiv.textContent = '';
-  resultDiv.className = 'result'; // base class
+  resultDiv.className = 'result'; // base class only
 
   const raw = input.value.trim();
   const score = parseInt(raw, 10);
@@ -98,35 +99,36 @@ function calculateGrade() {
   }
 
   // Determine grade and corresponding class
-  let gradeClass = '';
   let gradeText = '';
+  let gradeClass = '';
 
   if (score >= 90) {
-    gradeClass = 'grade-A';
     gradeText = 'A';
+    gradeClass = 'grade-A';
   } else if (score >= 80) {
-    gradeClass = 'grade-B';
     gradeText = 'B';
+    gradeClass = 'grade-B';
   } else if (score >= 70) {
-    gradeClass = 'grade-C';
     gradeText = 'C';
+    gradeClass = 'grade-C';
   } else if (score >= 60) {
-    gradeClass = 'grade-D';
     gradeText = 'D';
+    gradeClass = 'grade-D';
   } else {
-    gradeClass = 'grade-F';
     gradeText = 'F';
+    gradeClass = 'grade-F';
   }
 
   // Display result with styling
   resultDiv.textContent = `Your grade: ${gradeText} (${score}%)`;
-  resultDiv.classList.add(gradeClass, 'show');
+  resultDiv.classList.add('show', gradeClass);
 
   // Toggle buttons
   submitBtn.classList.add('hidden');
   backBtn.classList.remove('hidden');
 }
 
+// Reset Form Logic
 function resetForm() {
   const input = document.getElementById('score');
   const resultDiv = document.getElementById('result');
@@ -142,6 +144,6 @@ function resetForm() {
   submitBtn.classList.remove('hidden');
   backBtn.classList.add('hidden');
 
-  // Focus input for convenience
+  // Focus input for user convenience
   input.focus();
 }
